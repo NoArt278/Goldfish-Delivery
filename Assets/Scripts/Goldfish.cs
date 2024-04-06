@@ -8,6 +8,7 @@ public class Goldfish : MonoBehaviour
     private LineRenderer lr;
     private House destHouse;
     private const float moveSpeed = 0.5f;
+    private bool selectable;
     private Rigidbody2D rb;
     [SerializeField] private SpriteRenderer packageSprite;
 
@@ -19,6 +20,7 @@ public class Goldfish : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         heldPackages = new List<Package>();
         lr.enabled = false;
+        selectable = true;
     }
 
     public void AddPackage(Package p)
@@ -47,31 +49,45 @@ public class Goldfish : MonoBehaviour
     {
         heldPackages.RemoveAt(heldPackages.Count - 1);
         int remainingHouseCount = levelManager.GetHouseList().Count;
-        if (remainingHouseCount > 0)
+        if (remainingHouseCount > 0 && heldPackages.Count > 0)
         {
             int chosenIdx = Random.Range(0, levelManager.GetHouseList().Count);
             SelectHouse(levelManager.GetHouseList()[chosenIdx]);
             packageSprite.sprite = heldPackages[heldPackages.Count - 1].GetComponent<SpriteRenderer>().sprite;
             packageSprite.color = heldPackages[heldPackages.Count - 1].GetComponent<SpriteRenderer>().color;
+        } else
+        {
+            selectable = false;
+            packageSprite.transform.parent.gameObject.SetActive(false);
+            destHouse = null;
         }
     }
 
     private void OnMouseDown()
     {
-        lr.enabled = true;
-        levelManager.selectedGoldfish = this;
+        if (selectable)
+        {
+            lr.enabled = true;
+            levelManager.selectedGoldfish = this;
+        }
     }
 
     private void OnMouseDrag()
     {
-        lr.SetPosition(0, transform.position);
-        lr.SetPosition(1, Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        if (selectable)
+        {
+            lr.SetPosition(0, transform.position);
+            lr.SetPosition(1, Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        }
     }
 
     private void OnMouseUp()
     {
-        lr.enabled = false;
-        levelManager.selectedGoldfish = null;
+        if (selectable)
+        {
+            lr.enabled = false;
+            levelManager.selectedGoldfish = null;
+        }
     }
 
     void FixedUpdate()

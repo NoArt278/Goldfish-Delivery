@@ -34,9 +34,16 @@ public class LevelManager : MonoBehaviour
         }
         for (int i = 0; i < goldfishParent.childCount; i++)
         {
+            int endIdx = packageCount / goldfishParent.childCount;
+            if (i == goldfishParent.childCount-1)
+            {
+                // If last fish, assign all remaining packages
+                endIdx = packages.Count;
+            }
             goldfishes.Add(goldfishParent.GetChild(i).GetComponent<Goldfish>());
             goldfishes[i].levelManager = this;
-            for (int j=0; j < packageCount / goldfishParent.childCount; j++)
+            
+            for (int j=0; j < endIdx; j++)
             {
                 int chosenIdx = Random.Range(0, packages.Count);
                 goldfishes[i].AddPackage(packages[chosenIdx]);
