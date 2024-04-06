@@ -6,17 +6,30 @@ public class House : MonoBehaviour
 {
     private Package wantedPackage;
     private Goldfish currSender;
+    [SerializeField] private SpriteRenderer packageSprite;
+    [SerializeField] private GameObject packageBubble;
     [HideInInspector] public LevelManager levelManager;
 
     public bool isDone;
 
     private void Awake()
     {
+        packageBubble.SetActive(false);
         isDone = false;
     }
     public void SetWantedPackage(Package p)
     {
+        packageBubble.SetActive(true);
         wantedPackage = p;
+        packageSprite.sprite = p.GetComponent<SpriteRenderer>().sprite;
+        packageSprite.color = p.GetComponent<SpriteRenderer>().color;
+        StartCoroutine(ClosePackageBubble());
+    }
+
+    IEnumerator ClosePackageBubble()
+    {
+        yield return new WaitForSeconds(5f);
+        packageBubble.SetActive(false);
     }
 
     public void SetSender(Goldfish sender)
@@ -44,20 +57,22 @@ public class House : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //if (collision.gameObject == currSender.gameObject)
-        //{
-        //    isDone = true;
-        //    currSender.RemovePackage();
-        //    levelManager.RemoveHouse(this);
-        //    if (currSender.GeCurrentPackage().num == wantedPackage.num)
-        //    {
-        //        /* Add points and play correct animation */
-        //        levelManager.AddCorrect();
-        //    } else
-        //    {
-        //        /* Add to mistake count and play wrong animation */
-        //        levelManager.AddWrong();
-        //    }
-        //}
+        if (currSender != null && collision.gameObject == currSender.gameObject)
+        {
+            isDone = true;
+            levelManager.RemoveHouse(this);
+            if (currSender.GetCurrentPackage().num == wantedPackage.num)
+            {
+                /* Add points and play correct animation */
+                levelManager.AddCorrect();
+            }
+            else
+            {
+                /* Add to mistake count and play wrong animation */
+                levelManager.AddWrong();
+            }
+            currSender.RemovePackage();
+            currSender = null;
+        }
     }
 }

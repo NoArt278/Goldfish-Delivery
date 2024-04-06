@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class Goldfish : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class Goldfish : MonoBehaviour
     private House destHouse;
     private const float moveSpeed = 0.5f;
     private Rigidbody2D rb;
+    [SerializeField] private SpriteRenderer packageSprite;
+
     [HideInInspector] public LevelManager levelManager;
 
     private void Awake()
@@ -16,13 +19,13 @@ public class Goldfish : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         heldPackages = new List<Package>();
         lr.enabled = false;
-        int chosenIdx = Random.Range(0, levelManager.GetHouseList().Count);
-        SelectHouse(levelManager.GetHouseList()[chosenIdx]);
     }
 
     public void AddPackage(Package p)
     {
         heldPackages.Add(p);
+        packageSprite.sprite = p.GetComponent<SpriteRenderer>().sprite;
+        packageSprite.color = p.GetComponent<SpriteRenderer>().color;
     }
 
     public void SelectHouse(House h)
@@ -35,16 +38,22 @@ public class Goldfish : MonoBehaviour
         destHouse.SetSender(this);
     }
 
-    public Package GeCurrentPackage()
+    public Package GetCurrentPackage()
     {
-        return heldPackages[^1];
+        return heldPackages[heldPackages.Count - 1];
     }
 
     public void RemovePackage()
     {
         heldPackages.RemoveAt(heldPackages.Count - 1);
-        int chosenIdx = Random.Range(0, levelManager.GetHouseList().Count);
-        destHouse = levelManager.GetHouseList()[chosenIdx];
+        int remainingHouseCount = levelManager.GetHouseList().Count;
+        if (remainingHouseCount > 0)
+        {
+            int chosenIdx = Random.Range(0, levelManager.GetHouseList().Count);
+            SelectHouse(levelManager.GetHouseList()[chosenIdx]);
+            packageSprite.sprite = heldPackages[heldPackages.Count - 1].GetComponent<SpriteRenderer>().sprite;
+            packageSprite.color = heldPackages[heldPackages.Count - 1].GetComponent<SpriteRenderer>().color;
+        }
     }
 
     private void OnMouseDown()
@@ -65,10 +74,13 @@ public class Goldfish : MonoBehaviour
         levelManager.selectedGoldfish = null;
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        transform.LookAt(destHouse.transform.position);
-        rb.velocity = transform.forward * moveSpeed;
+        if (destHouse != null)
+        {
+            Vector2 direction = new Vector2(destHouse.transform.position.x, destHouse.transform.position.y) - new Vector2(transform.position.x, transform.position.y);
+            rb.MoveRotation(Quaternion.FromToRotation(Vector3.up, direction));
+            rb.MovePosition(Vector3.Lerp(transform.position, destHouse.transform.position, moveSpeed * Time.fixedDeltaTime));
+        }
     }
 }

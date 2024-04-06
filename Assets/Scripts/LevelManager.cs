@@ -6,27 +6,42 @@ public class LevelManager : MonoBehaviour
 {
     private List<House> houses;
     private List<Goldfish> goldfishes;
-    private int correctCount, wrongCount;
+    public int correctCount, wrongCount;
     [SerializeField] private List<Package> packages;
     [SerializeField] Transform houseParent, goldfishParent;
 
     public Goldfish selectedGoldfish;
  
-    private void Awake()
+    private void Start()
     {
         selectedGoldfish = null;
         houses = new List<House>();
         goldfishes = new List<Goldfish>();
+        int packageCount = packages.Count;
+        List<Package> tempPackages = new List<Package>();
+        foreach (Package p in packages)
+        {
+            tempPackages.Add(p);
+        }
         for (int i=0; i < houseParent.childCount; i++)
         {
             houses.Add(houseParent.GetChild(i).GetComponent<House>());
             houses[i].levelManager = this;
-            houses[i].SetWantedPackage(packages[i]);
+            // Assign random package to each house
+            int chosenIdx = Random.Range(0, tempPackages.Count);
+            houses[i].SetWantedPackage(tempPackages[chosenIdx]);
+            tempPackages.Remove(tempPackages[chosenIdx]);
         }
         for (int i = 0; i < goldfishParent.childCount; i++)
         {
             goldfishes.Add(goldfishParent.GetChild(i).GetComponent<Goldfish>());
             goldfishes[i].levelManager = this;
+            for (int j=0; j < packageCount / goldfishParent.childCount; j++)
+            {
+                int chosenIdx = Random.Range(0, packages.Count);
+                goldfishes[i].AddPackage(packages[chosenIdx]);
+                packages.Remove(packages[chosenIdx]);
+            }
         }
     }
 
