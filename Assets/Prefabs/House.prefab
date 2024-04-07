@@ -126,6 +126,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   packageBubble: {fileID: 8030803162104028480}
+  wrong: {fileID: 21300000, guid: 7bb7662774751da4b903859c57a050dc, type: 3}
+  correct: {fileID: 21300000, guid: b8f47b6be346a3b4eb449af13acd6bb3, type: 3}
   levelManager: {fileID: 0}
   isDone: 0
 --- !u!1001 &3198900853734388276

@@ -555,7 +555,7 @@ PrefabInstance:
     - target: {fileID: 4551624535378340710, guid: 1d9d27150e18fb342830196e29e8833d, type: 3}
       propertyPath: packageBubble
       value: 
-      objectReference: {fileID: 2007595989}
+      objectReference: {fileID: 2007595991}
     - target: {fileID: 4551624535378340710, guid: 1d9d27150e18fb342830196e29e8833d, type: 3}
       propertyPath: packageSprite
       value: 
@@ -850,7 +850,7 @@ SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 2755693597709565907, guid: 18a408c8fc53a554aa3ef30ec94c4c89, type: 3}
   m_PrefabInstance: {fileID: 2007595986}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2007595989 stripped
+--- !u!114 &2007595991 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: -4388789114824855692, guid: 18a408c8fc53a554aa3ef30ec94c4c89, type: 3}
   m_PrefabInstance: {fileID: 2007595986}

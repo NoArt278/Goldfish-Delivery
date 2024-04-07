@@ -7,6 +7,7 @@ public class House : MonoBehaviour
     private Package wantedPackage;
     private Goldfish currSender;
     [SerializeField] private PackageBubble packageBubble;
+    [SerializeField] private Sprite wrong, correct;
     [HideInInspector] public LevelManager levelManager;
 
     [HideInInspector] public bool isDone;
@@ -62,12 +63,15 @@ public class House : MonoBehaviour
             {
                 /* Add points and play correct animation */
                 levelManager.AddCorrect();
+                packageBubble.SetPackageSprite(correct, Color.white);
             }
             else
             {
                 /* Add to mistake count and play wrong animation */
                 levelManager.AddWrong();
+                packageBubble.SetPackageSprite(wrong, Color.white);
             }
+            packageBubble.Show();
             currSender.RemovePackage();
             currSender = null;
         }
