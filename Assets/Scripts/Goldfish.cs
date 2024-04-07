@@ -109,7 +109,7 @@ public class Goldfish : MonoBehaviour
 
     void FixedUpdate()
     {
-        packageSprite.transform.parent.position = transform.position + new Vector3(1.1f * (isFlipped ? -1 : 1), 0.8f);
+        packageSprite.transform.parent.position = transform.position + new Vector3(0.7f * (isFlipped ? -1 : 1), 0.6f);
         if (destHouse != null)
         {
             rb.MovePosition(Vector3.Lerp(transform.position, destHouse.transform.position, moveSpeed * Time.fixedDeltaTime));
