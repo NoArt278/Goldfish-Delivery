@@ -8,7 +8,7 @@ public class Goldfish : MonoBehaviour
     private LineRenderer lr;
     private House destHouse;
     private const float moveSpeed = 1f;
-    private bool selectable;
+    private bool selectable, started;
     private Rigidbody2D rb;
     private Coroutine flipDir;
     private SpriteRenderer sr;
@@ -25,9 +25,10 @@ public class Goldfish : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         heldPackages = new List<Package>();
         lr.enabled = false;
-        selectable = true;
-        packageBubble.Show();
+        selectable = false;
+        started = false;
         StartCoroutine(SwimAnim());
+        StartCoroutine(StartWait());
     }
 
     public void AddPackage(Package p)
@@ -131,10 +132,19 @@ public class Goldfish : MonoBehaviour
         if (destHouse != null)
         {
             rb.MovePosition(Vector3.MoveTowards(transform.position, destHouse.transform.position, moveSpeed * Time.fixedDeltaTime));
-        } else if (!selectable) // Done delivering packages
+        } else if (!selectable && started) // Done delivering packages
         {
             rb.MovePosition(Vector3.MoveTowards(transform.position, postOffice.position, moveSpeed * Time.fixedDeltaTime));
         }
+    }
+
+    IEnumerator StartWait()
+    {
+        // Wait until house is done showing wanted packages
+        yield return new WaitForSeconds(5f);
+        selectable = true;
+        started = true;
+        packageBubble.Show();
     }
 
     IEnumerator SwimAnim()
