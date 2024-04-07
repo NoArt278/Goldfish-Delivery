@@ -77,6 +77,11 @@ public class Goldfish : MonoBehaviour
                         heldPackages[heldPackages.Count - 1].GetComponent<SpriteRenderer>().color);
         } else
         {
+            if (levelManager.selectedGoldfish == this)
+            {
+                levelManager.selectedGoldfish = null;
+            }
+            lr.enabled = false;
             selectable = false;
             packageBubble.Hide();
             destHouse = null;
