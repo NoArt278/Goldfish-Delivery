@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
@@ -8,8 +9,9 @@ public class Goldfish : MonoBehaviour
     private LineRenderer lr;
     private House destHouse;
     private const float moveSpeed = 0.5f;
-    private bool selectable;
+    private bool selectable, isFlipped;
     private Rigidbody2D rb;
+    private Coroutine flipDir;
     [SerializeField] private SpriteRenderer packageSprite;
 
     [HideInInspector] public LevelManager levelManager;
@@ -38,6 +40,24 @@ public class Goldfish : MonoBehaviour
         }
         destHouse = h;
         destHouse.SetSender(this);
+        if (destHouse.transform.position.x < transform.position.x && transform.rotation.eulerAngles.y != 180)
+        {
+            isFlipped = true;
+            if (flipDir != null)
+            {
+                StopCoroutine(flipDir);
+            }
+            flipDir = StartCoroutine(FlipDirection(180));
+        }
+        else if (destHouse.transform.position.x >= transform.position.x && transform.rotation.eulerAngles.y != 0)
+        {
+            isFlipped = false;
+            if (flipDir != null)
+            {
+                StopCoroutine(flipDir);
+            }
+            flipDir = StartCoroutine(FlipDirection(0));
+        }
     }
 
     public Package GetCurrentPackage()
@@ -48,11 +68,8 @@ public class Goldfish : MonoBehaviour
     public void RemovePackage()
     {
         heldPackages.RemoveAt(heldPackages.Count - 1);
-        int remainingHouseCount = levelManager.GetHouseList().Count;
-        if (remainingHouseCount > 0 && heldPackages.Count > 0)
+        if (heldPackages.Count > 0)
         {
-            int chosenIdx = Random.Range(0, levelManager.GetHouseList().Count);
-            SelectHouse(levelManager.GetHouseList()[chosenIdx]);
             packageSprite.sprite = heldPackages[heldPackages.Count - 1].GetComponent<SpriteRenderer>().sprite;
             packageSprite.color = heldPackages[heldPackages.Count - 1].GetComponent<SpriteRenderer>().color;
         } else
@@ -92,11 +109,20 @@ public class Goldfish : MonoBehaviour
 
     void FixedUpdate()
     {
+        packageSprite.transform.parent.position = transform.position + new Vector3(1.1f * (isFlipped ? -1 : 1), 0.8f);
         if (destHouse != null)
         {
-            Vector2 direction = new Vector2(destHouse.transform.position.x, destHouse.transform.position.y) - new Vector2(transform.position.x, transform.position.y);
-            rb.MoveRotation(Quaternion.FromToRotation(Vector3.up, direction));
             rb.MovePosition(Vector3.Lerp(transform.position, destHouse.transform.position, moveSpeed * Time.fixedDeltaTime));
+        }
+    }
+
+    IEnumerator FlipDirection(float angle)
+    {
+        while (transform.rotation.eulerAngles.y != angle)
+        {
+            Quaternion rot = Quaternion.Euler(new Vector3(0, angle));
+            transform.rotation = Quaternion.Lerp(transform.rotation, rot, 10 * Time.fixedDeltaTime);
+            yield return new WaitForFixedUpdate();
         }
     }
 }
