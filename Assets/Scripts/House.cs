@@ -6,30 +6,27 @@ public class House : MonoBehaviour
 {
     private Package wantedPackage;
     private Goldfish currSender;
-    [SerializeField] private SpriteRenderer packageSprite;
-    [SerializeField] private GameObject packageBubble;
+    [SerializeField] private PackageBubble packageBubble;
     [HideInInspector] public LevelManager levelManager;
 
-    public bool isDone;
+    [HideInInspector] public bool isDone;
 
     private void Awake()
     {
-        packageBubble.SetActive(false);
         isDone = false;
     }
     public void SetWantedPackage(Package p)
     {
-        packageBubble.SetActive(true);
         wantedPackage = p;
-        packageSprite.sprite = p.GetComponent<SpriteRenderer>().sprite;
-        packageSprite.color = p.GetComponent<SpriteRenderer>().color;
+        packageBubble.Show();
+        packageBubble.SetPackageSprite(p.GetComponent<SpriteRenderer>().sprite, p.GetComponent<SpriteRenderer>().color);
         StartCoroutine(ClosePackageBubble());
     }
 
     IEnumerator ClosePackageBubble()
     {
         yield return new WaitForSeconds(5f);
-        packageBubble.SetActive(false);
+        packageBubble.Hide();
     }
 
     public void SetSender(Goldfish sender)

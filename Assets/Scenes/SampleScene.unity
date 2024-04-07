@@ -195,6 +195,14 @@ PrefabInstance:
       value: Goldfish (1)
       objectReference: {fileID: 0}
     - target: {fileID: 4551624535378340710, guid: 1d9d27150e18fb342830196e29e8833d, type: 3}
+      propertyPath: postOffice
+      value: 
+      objectReference: {fileID: 410738606}
+    - target: {fileID: 4551624535378340710, guid: 1d9d27150e18fb342830196e29e8833d, type: 3}
+      propertyPath: packageBubble
+      value: 
+      objectReference: {fileID: 227246427}
+    - target: {fileID: 4551624535378340710, guid: 1d9d27150e18fb342830196e29e8833d, type: 3}
       propertyPath: packageSprite
       value: 
       objectReference: {fileID: 227246426}
@@ -272,6 +280,17 @@ SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 2755693597709565907, guid: 18a408c8fc53a554aa3ef30ec94c4c89, type: 3}
   m_PrefabInstance: {fileID: 227246424}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &227246427 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -4388789114824855692, guid: 18a408c8fc53a554aa3ef30ec94c4c89, type: 3}
+  m_PrefabInstance: {fileID: 227246424}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 892d0a88915bd124297eadb9c7ca6bdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &365719004
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,6 +346,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &410738606 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6979391077802418130, guid: e79752b9c1d9c1943bf6ff8fc052d756, type: 3}
+  m_PrefabInstance: {fileID: 6979391077661458556}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &473730864
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -394,6 +418,17 @@ SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 2755693597709565907, guid: 18a408c8fc53a554aa3ef30ec94c4c89, type: 3}
   m_PrefabInstance: {fileID: 473730864}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &473730867 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -4388789114824855692, guid: 18a408c8fc53a554aa3ef30ec94c4c89, type: 3}
+  m_PrefabInstance: {fileID: 473730864}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 892d0a88915bd124297eadb9c7ca6bdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -447,7 +482,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 4
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -513,6 +548,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Goldfish (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4551624535378340710, guid: 1d9d27150e18fb342830196e29e8833d, type: 3}
+      propertyPath: postOffice
+      value: 
+      objectReference: {fileID: 410738606}
+    - target: {fileID: 4551624535378340710, guid: 1d9d27150e18fb342830196e29e8833d, type: 3}
+      propertyPath: packageBubble
+      value: 
+      objectReference: {fileID: 2007595989}
     - target: {fileID: 4551624535378340710, guid: 1d9d27150e18fb342830196e29e8833d, type: 3}
       propertyPath: packageSprite
       value: 
@@ -807,6 +850,17 @@ SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 2755693597709565907, guid: 18a408c8fc53a554aa3ef30ec94c4c89, type: 3}
   m_PrefabInstance: {fileID: 2007595986}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2007595989 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -4388789114824855692, guid: 18a408c8fc53a554aa3ef30ec94c4c89, type: 3}
+  m_PrefabInstance: {fileID: 2007595986}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 892d0a88915bd124297eadb9c7ca6bdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2091148457
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -926,6 +980,14 @@ PrefabInstance:
       value: Goldfish
       objectReference: {fileID: 0}
     - target: {fileID: 4551624535378340710, guid: 1d9d27150e18fb342830196e29e8833d, type: 3}
+      propertyPath: postOffice
+      value: 
+      objectReference: {fileID: 410738606}
+    - target: {fileID: 4551624535378340710, guid: 1d9d27150e18fb342830196e29e8833d, type: 3}
+      propertyPath: packageBubble
+      value: 
+      objectReference: {fileID: 473730867}
+    - target: {fileID: 4551624535378340710, guid: 1d9d27150e18fb342830196e29e8833d, type: 3}
       propertyPath: packageSprite
       value: 
       objectReference: {fileID: 473730866}
@@ -952,7 +1014,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6979391077802418130, guid: e79752b9c1d9c1943bf6ff8fc052d756, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.9000001
+      value: 2.11
       objectReference: {fileID: 0}
     - target: {fileID: 6979391077802418130, guid: e79752b9c1d9c1943bf6ff8fc052d756, type: 3}
       propertyPath: m_LocalPosition.z

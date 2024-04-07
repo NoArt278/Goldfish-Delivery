@@ -8,11 +8,12 @@ public class Goldfish : MonoBehaviour
     private List<Package> heldPackages;
     private LineRenderer lr;
     private House destHouse;
-    private const float moveSpeed = 0.5f;
-    private bool selectable, isFlipped;
+    private const float moveSpeed = 0.3f;
+    private bool selectable;
     private Rigidbody2D rb;
     private Coroutine flipDir;
-    [SerializeField] private SpriteRenderer packageSprite;
+    [SerializeField] private Transform postOffice;
+    [SerializeField] private PackageBubble packageBubble;
 
     [HideInInspector] public LevelManager levelManager;
 
@@ -23,13 +24,13 @@ public class Goldfish : MonoBehaviour
         heldPackages = new List<Package>();
         lr.enabled = false;
         selectable = true;
+        packageBubble.Show();
     }
 
     public void AddPackage(Package p)
     {
         heldPackages.Add(p);
-        packageSprite.sprite = p.GetComponent<SpriteRenderer>().sprite;
-        packageSprite.color = p.GetComponent<SpriteRenderer>().color;
+        packageBubble.SetPackageSprite(p.GetComponent<SpriteRenderer>().sprite, p.GetComponent<SpriteRenderer>().color);
     }
 
     public void SelectHouse(House h)
@@ -42,7 +43,6 @@ public class Goldfish : MonoBehaviour
         destHouse.SetSender(this);
         if (destHouse.transform.position.x < transform.position.x && transform.rotation.eulerAngles.y != 180)
         {
-            isFlipped = true;
             if (flipDir != null)
             {
                 StopCoroutine(flipDir);
@@ -51,7 +51,6 @@ public class Goldfish : MonoBehaviour
         }
         else if (destHouse.transform.position.x >= transform.position.x && transform.rotation.eulerAngles.y != 0)
         {
-            isFlipped = false;
             if (flipDir != null)
             {
                 StopCoroutine(flipDir);
@@ -70,13 +69,29 @@ public class Goldfish : MonoBehaviour
         heldPackages.RemoveAt(heldPackages.Count - 1);
         if (heldPackages.Count > 0)
         {
-            packageSprite.sprite = heldPackages[heldPackages.Count - 1].GetComponent<SpriteRenderer>().sprite;
-            packageSprite.color = heldPackages[heldPackages.Count - 1].GetComponent<SpriteRenderer>().color;
+            packageBubble.SetPackageSprite(heldPackages[heldPackages.Count - 1].GetComponent<SpriteRenderer>().sprite,
+                        heldPackages[heldPackages.Count - 1].GetComponent<SpriteRenderer>().color);
         } else
         {
             selectable = false;
-            packageSprite.transform.parent.gameObject.SetActive(false);
+            packageBubble.Hide();
             destHouse = null;
+            if (postOffice.position.x < transform.position.x && transform.rotation.eulerAngles.y != 180)
+            {
+                if (flipDir != null)
+                {
+                    StopCoroutine(flipDir);
+                }
+                flipDir = StartCoroutine(FlipDirection(180));
+            }
+            else if (postOffice.position.x >= transform.position.x && transform.rotation.eulerAngles.y != 0)
+            {
+                if (flipDir != null)
+                {
+                    StopCoroutine(flipDir);
+                }
+                flipDir = StartCoroutine(FlipDirection(0));
+            }
         }
     }
 
@@ -109,10 +124,13 @@ public class Goldfish : MonoBehaviour
 
     void FixedUpdate()
     {
-        packageSprite.transform.parent.position = transform.position + new Vector3(0.7f * (isFlipped ? -1 : 1), 0.6f);
+        packageBubble.transform.position = transform.position + new Vector3(0.7f, 0.6f);
         if (destHouse != null)
         {
-            rb.MovePosition(Vector3.Lerp(transform.position, destHouse.transform.position, moveSpeed * Time.fixedDeltaTime));
+            rb.MovePosition(Vector3.LerpUnclamped(transform.position, destHouse.transform.position, moveSpeed * Time.fixedDeltaTime));
+        } else if (!selectable) // Done delivering packages
+        {
+            rb.MovePosition(Vector3.LerpUnclamped(transform.position, postOffice.position, moveSpeed * Time.fixedDeltaTime));
         }
     }
 
