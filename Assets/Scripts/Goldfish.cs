@@ -8,10 +8,11 @@ public class Goldfish : MonoBehaviour
     private List<Package> heldPackages;
     private LineRenderer lr;
     private House destHouse;
-    private const float moveSpeed = 0.3f;
+    private const float moveSpeed = 1f;
     private bool selectable;
     private Rigidbody2D rb;
     private Coroutine flipDir;
+    private Vector3 initPos;
     [SerializeField] private Transform postOffice;
     [SerializeField] private PackageBubble packageBubble;
 
@@ -41,6 +42,7 @@ public class Goldfish : MonoBehaviour
         }
         destHouse = h;
         destHouse.SetSender(this);
+        initPos = transform.position;
         if (destHouse.transform.position.x < transform.position.x && transform.rotation.eulerAngles.y != 180)
         {
             if (flipDir != null)
@@ -76,6 +78,7 @@ public class Goldfish : MonoBehaviour
             selectable = false;
             packageBubble.Hide();
             destHouse = null;
+            initPos = transform.position;
             if (postOffice.position.x < transform.position.x && transform.rotation.eulerAngles.y != 180)
             {
                 if (flipDir != null)
@@ -127,10 +130,10 @@ public class Goldfish : MonoBehaviour
         packageBubble.transform.position = transform.position + new Vector3(0.7f, 0.6f);
         if (destHouse != null)
         {
-            rb.MovePosition(Vector3.LerpUnclamped(transform.position, destHouse.transform.position, moveSpeed * Time.fixedDeltaTime));
+            rb.MovePosition(Vector3.MoveTowards(transform.position, destHouse.transform.position, moveSpeed * Time.fixedDeltaTime));
         } else if (!selectable) // Done delivering packages
         {
-            rb.MovePosition(Vector3.LerpUnclamped(transform.position, postOffice.position, moveSpeed * Time.fixedDeltaTime));
+            rb.MovePosition(Vector3.MoveTowards(transform.position, postOffice.position, moveSpeed * Time.fixedDeltaTime));
         }
     }
 
