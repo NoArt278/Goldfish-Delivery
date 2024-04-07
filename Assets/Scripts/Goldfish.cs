@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class Goldfish : MonoBehaviour
 {
@@ -12,9 +11,10 @@ public class Goldfish : MonoBehaviour
     private bool selectable;
     private Rigidbody2D rb;
     private Coroutine flipDir;
-    private Vector3 initPos;
+    private SpriteRenderer sr;
     [SerializeField] private Transform postOffice;
     [SerializeField] private PackageBubble packageBubble;
+    [SerializeField] private Sprite down, up;
 
     [HideInInspector] public LevelManager levelManager;
 
@@ -22,10 +22,12 @@ public class Goldfish : MonoBehaviour
     {
         lr = GetComponent<LineRenderer>();
         rb = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();
         heldPackages = new List<Package>();
         lr.enabled = false;
         selectable = true;
         packageBubble.Show();
+        StartCoroutine(SwimAnim());
     }
 
     public void AddPackage(Package p)
@@ -42,7 +44,6 @@ public class Goldfish : MonoBehaviour
         }
         destHouse = h;
         destHouse.SetSender(this);
-        initPos = transform.position;
         if (destHouse.transform.position.x < transform.position.x && transform.rotation.eulerAngles.y != 180)
         {
             if (flipDir != null)
@@ -78,7 +79,6 @@ public class Goldfish : MonoBehaviour
             selectable = false;
             packageBubble.Hide();
             destHouse = null;
-            initPos = transform.position;
             if (postOffice.position.x < transform.position.x && transform.rotation.eulerAngles.y != 180)
             {
                 if (flipDir != null)
@@ -134,6 +134,17 @@ public class Goldfish : MonoBehaviour
         } else if (!selectable) // Done delivering packages
         {
             rb.MovePosition(Vector3.MoveTowards(transform.position, postOffice.position, moveSpeed * Time.fixedDeltaTime));
+        }
+    }
+
+    IEnumerator SwimAnim()
+    {
+        while (true)
+        {
+            sr.sprite = down;
+            yield return new WaitForSeconds(1);
+            sr.sprite = up;
+            yield return new WaitForSeconds(1);
         }
     }
 

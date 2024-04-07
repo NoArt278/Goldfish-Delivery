@@ -225,7 +225,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff1478f2a183d8e44987af05bbc02fd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  packageSprite: {fileID: 0}
+  postOffice: {fileID: 0}
+  packageBubble: {fileID: 0}
+  down: {fileID: 21300000, guid: 38655726bd5f4a64cb44c42f8f063d5a, type: 3}
+  up: {fileID: 21300000, guid: 3905b9322ae38374fbfbc2ce08d10fdb, type: 3}
   levelManager: {fileID: 0}
 --- !u!50 &4551624535378340729
 Rigidbody2D:
