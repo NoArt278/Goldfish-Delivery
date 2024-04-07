@@ -41,6 +41,5 @@ public class PackageBubble : MonoBehaviour
             yield return null;
         }
         transform.localScale = Vector3.zero;
-        gameObject.SetActive(true);
     }
 }
