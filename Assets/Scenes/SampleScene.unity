@@ -571,7 +571,7 @@ MonoBehaviour:
   levelFinish: {fileID: 949256957}
   houseParent: {fileID: 108801639}
   goldfishParent: {fileID: 1568231023}
-  playDialogue: 0
+  playDialogue: 1
   selectedGoldfish: {fileID: 0}
 --- !u!4 &365719006
 Transform:
