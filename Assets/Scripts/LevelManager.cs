@@ -8,14 +8,17 @@ public class LevelManager : MonoBehaviour
     private List<Goldfish> goldfishes;
     [SerializeField] private List<Package> packages;
     [SerializeField] private GameObject dialogueBox;
+    [SerializeField] private LevelFinish levelFinish;
+    private int correctCount, wrongCount, totalHouse;
     [SerializeField] Transform houseParent, goldfishParent;
 
-    public int correctCount, wrongCount;
     public bool playDialogue;
     public Goldfish selectedGoldfish;
  
     private void Start()
     {
+        correctCount = 0;
+        wrongCount = 0;
         if (playDialogue)
         {
             dialogueBox.SetActive(true);
@@ -39,6 +42,7 @@ public class LevelManager : MonoBehaviour
             houses[i].SetWantedPackage(tempPackages[chosenIdx]);
             tempPackages.Remove(tempPackages[chosenIdx]);
         }
+        totalHouse = houses.Count;
         for (int i = 0; i < goldfishParent.childCount; i++)
         {
             int endIdx = packageCount / goldfishParent.childCount;
@@ -67,6 +71,21 @@ public class LevelManager : MonoBehaviour
     public void RemoveHouse(House h)
     {
         houses.Remove(h);
+        // Level is finished, all houses have received a mail
+        if (houses.Count == 0 )
+        {
+            levelFinish.gameObject.SetActive(true);
+            if (correctCount == totalHouse)
+            {
+                levelFinish.SetStars(3);
+            } else if (correctCount > wrongCount)
+            {
+                levelFinish.SetStars(2);
+            } else // More wrong than correct
+            {
+                levelFinish.SetStars(1);
+            }
+        }
     }
 
     public void AddCorrect()
@@ -76,11 +95,5 @@ public class LevelManager : MonoBehaviour
 
     public void AddWrong() { 
         wrongCount++;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

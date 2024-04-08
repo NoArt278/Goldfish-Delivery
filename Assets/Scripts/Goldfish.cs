@@ -7,7 +7,7 @@ public class Goldfish : MonoBehaviour
     private List<Package> heldPackages;
     private LineRenderer lr;
     private House destHouse;
-    private const float moveSpeed = 1f;
+    private const float moveSpeed = 2f;
     private bool selectable, started;
     private Rigidbody2D rb;
     private Coroutine flipDir;

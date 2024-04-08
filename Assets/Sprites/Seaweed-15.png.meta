@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 80c531474830dbe41b210121789891b5
+guid: 4afb83f841f0dad4a9bd0f0969e27f63
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,9 +47,9 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 512
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 0
+  spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -117,118 +117,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Dungeon_WallsAndFloors_0
+      name: Seaweed-15_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 224
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 33c500c0661139a4294130a17bad33df
-      internalID: 1376145004
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Dungeon_WallsAndFloors_1
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 128
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a69374f73e8a6594b997aeeb7fdbc675
-      internalID: -273335959
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Dungeon_WallsAndFloors_2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 64
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e88ebecc4c711104caff8d5110c8e5f4
-      internalID: 1519300015
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Dungeon_WallsAndFloors_3
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7fc66737263a69d4b92e692709613e6c
-      internalID: 1380386406
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Dungeon_WallsAndFloors_4
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 192
-        width: 16
-        height: 17
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 95fcb952156a69e4790d8eb888662ee2
-      internalID: -1756278081
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Dungeon_WallsAndFloors_5
-      rect:
-        serializedVersion: 2
-        x: 15
-        y: 208
-        width: 17
-        height: 17
+        x: 1551
+        y: 166
+        width: 1349
+        height: 3742
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -236,8 +131,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d1df881e33c8f034a89a083a84b701eb
-      internalID: 679275104
+      spriteID: 0916d4197c7e30f4aad4c8e5682ac2e2
+      internalID: 2050010763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Seaweed-15_1
+      rect:
+        serializedVersion: 2
+        x: 3331
+        y: 166
+        width: 1111
+        height: 3731
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 433f2f0dee5c93149b138a75ecb3e5b0
+      internalID: -1393472399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Seaweed-15_2
+      rect:
+        serializedVersion: 2
+        x: 4839
+        y: 132
+        width: 1236
+        height: 4025
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7dc63012bb525b49a955f34ca5b6df9
+      internalID: -1013555678
       vertices: []
       indices: 
       edges: []
@@ -253,12 +190,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Dungeon_WallsAndFloors_0: 1376145004
-      Dungeon_WallsAndFloors_1: -273335959
-      Dungeon_WallsAndFloors_2: 1519300015
-      Dungeon_WallsAndFloors_3: 1380386406
-      Dungeon_WallsAndFloors_4: -1756278081
-      Dungeon_WallsAndFloors_5: 679275104
+      Seaweed-15_0: 2050010763
+      Seaweed-15_1: -1393472399
+      Seaweed-15_2: -1013555678
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

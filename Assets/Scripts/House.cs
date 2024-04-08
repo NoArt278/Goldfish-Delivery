@@ -58,7 +58,6 @@ public class House : MonoBehaviour
         if (currSender != null && collision.gameObject == currSender.gameObject)
         {
             isDone = true;
-            levelManager.RemoveHouse(this);
             if (currSender.GetCurrentPackage().num == wantedPackage.num)
             {
                 /* Add points and play correct animation */
@@ -74,6 +73,7 @@ public class House : MonoBehaviour
             packageBubble.Show();
             currSender.RemovePackage();
             currSender = null;
+            levelManager.RemoveHouse(this);
         }
     }
 }
