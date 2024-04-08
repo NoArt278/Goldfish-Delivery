@@ -11,7 +11,7 @@ public class PackageBubble : MonoBehaviour
     {
         packageSprite.sprite = sprite;
         packageSprite.color = color;
-    }
+    } 
 
     public void Show()
     {

@@ -6,12 +6,13 @@ public class Goldfish : MonoBehaviour
 {
     private List<Package> heldPackages;
     private LineRenderer lr;
-    private House destHouse;
+    private House destHouse, tempDest;
     private const float moveSpeed = 2f;
     private bool selectable, started;
     private Rigidbody2D rb;
     private Coroutine flipDir;
     private SpriteRenderer sr;
+    private AudioSource audSource;
     [SerializeField] private Transform postOffice;
     [SerializeField] private PackageBubble packageBubble;
     [SerializeField] private Sprite down, up;
@@ -23,6 +24,7 @@ public class Goldfish : MonoBehaviour
         lr = GetComponent<LineRenderer>();
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
+        audSource = GetComponent<AudioSource>();
         heldPackages = new List<Package>();
         lr.enabled = false;
         selectable = false;
@@ -39,28 +41,7 @@ public class Goldfish : MonoBehaviour
 
     public void SelectHouse(House h)
     {
-        if (destHouse != null)
-        {
-            destHouse.SetSender(null);
-        }
-        destHouse = h;
-        destHouse.SetSender(this);
-        if (destHouse.transform.position.x < transform.position.x && transform.rotation.eulerAngles.y != 180)
-        {
-            if (flipDir != null)
-            {
-                StopCoroutine(flipDir);
-            }
-            flipDir = StartCoroutine(FlipDirection(180));
-        }
-        else if (destHouse.transform.position.x >= transform.position.x && transform.rotation.eulerAngles.y != 0)
-        {
-            if (flipDir != null)
-            {
-                StopCoroutine(flipDir);
-            }
-            flipDir = StartCoroutine(FlipDirection(0));
-        }
+        tempDest = h;
     }
 
     public Package GetCurrentPackage()
@@ -108,6 +89,7 @@ public class Goldfish : MonoBehaviour
     {
         if (selectable)
         {
+            audSource.Play();
             lr.enabled = true;
             levelManager.selectedGoldfish = this;
         }
@@ -128,6 +110,31 @@ public class Goldfish : MonoBehaviour
         {
             lr.enabled = false;
             levelManager.selectedGoldfish = null;
+            if (tempDest != null)
+            {
+                if (destHouse != null)
+                {
+                    destHouse.SetSender(null);
+                }
+                destHouse = tempDest;
+                destHouse.SetSender(this);
+                if (destHouse.transform.position.x < transform.position.x && transform.rotation.eulerAngles.y != 180)
+                {
+                    if (flipDir != null)
+                    {
+                        StopCoroutine(flipDir);
+                    }
+                    flipDir = StartCoroutine(FlipDirection(180));
+                }
+                else if (destHouse.transform.position.x >= transform.position.x && transform.rotation.eulerAngles.y != 0)
+                {
+                    if (flipDir != null)
+                    {
+                        StopCoroutine(flipDir);
+                    }
+                    flipDir = StartCoroutine(FlipDirection(0));
+                }
+            }
         }
     }
 

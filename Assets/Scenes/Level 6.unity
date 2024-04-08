@@ -271,9 +271,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 406932998}
   - {fileID: 907738975}
   - {fileID: 53311025}
-  - {fileID: 406932998}
   - {fileID: 277868608}
   - {fileID: 1772437305}
   - {fileID: 87739134}
@@ -855,7 +855,7 @@ Transform:
   - {fileID: 1691744366}
   - {fileID: 503661713}
   m_Father: {fileID: 70240758}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &410738606 stripped
 Transform:
@@ -4147,6 +4147,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7916501889300805152, guid: 962e07a879c62a847b6798e83b01b09b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7916501889842600434, guid: 962e07a879c62a847b6798e83b01b09b, type: 3}
       propertyPath: m_Pivot.x
       value: 0

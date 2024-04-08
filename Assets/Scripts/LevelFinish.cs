@@ -19,6 +19,7 @@ public class LevelFinish : MonoBehaviour
 
     public void SetStars(int count)
     {
+        int currLevel = SceneManager.GetActiveScene().buildIndex;
         for (int i = 0; i < count; i++)
         {
             stars[i].color = Color.white;
@@ -27,6 +28,20 @@ public class LevelFinish : MonoBehaviour
         {
             finishText.text = "Level failed";
             nextButton.gameObject.SetActive(false);
+        } else
+        {
+            // Unlock level if succeeded
+            int lastUnlockedLevel = PlayerPrefs.GetInt("LastUnlockedLevel", 1);
+            if (currLevel < 6 && currLevel == lastUnlockedLevel)
+            {
+                PlayerPrefs.SetInt("LastUnlockedLevel", currLevel+1);
+            }
+        }
+        // Set star count
+        int lvlStarCount = PlayerPrefs.GetInt("Stars" + currLevel, 1);
+        if (count > lvlStarCount)
+        {
+            PlayerPrefs.SetInt("Stars" + currLevel, count);
         }
     }
 
@@ -35,6 +50,11 @@ public class LevelFinish : MonoBehaviour
         int currSceneIdx = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currSceneIdx + 1);
     }
+
+    public void BackToStart()
+    {
+        SceneManager.LoadScene(0);
+    }    
 
     public void Retry()
     {

@@ -51,7 +51,8 @@ public class Dialog : MonoBehaviour
     {
         foreach (char c in lines[index].ToCharArray())
         {
-            textSoundEffect.PlayDelayed(dialogueSpeed);
+            textSoundEffect.pitch = Random.Range(1f, 1.2f);
+            textSoundEffect.Play();
             dialogueText.text += c;
             yield return new WaitForSecondsRealtime(dialogueSpeed);
         }
