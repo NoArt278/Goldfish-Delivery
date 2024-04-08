@@ -10,6 +10,7 @@ public class Dialog : MonoBehaviour
     public int index = 0;
 
     [SerializeField] private TMP_Text dialogueText;
+    [SerializeField] private AudioSource textSoundEffect;
     private const float dialogueSpeed = 0.1f;
     private Coroutine dialogueCoroutine;
 
@@ -50,8 +51,10 @@ public class Dialog : MonoBehaviour
     {
         foreach (char c in lines[index].ToCharArray())
         {
+            textSoundEffect.PlayDelayed(dialogueSpeed);
             dialogueText.text += c;
-            yield return new WaitForSeconds(dialogueSpeed);
+            yield return new WaitForSecondsRealtime(dialogueSpeed);
         }
+        dialogueCoroutine = null;
     }
 }
