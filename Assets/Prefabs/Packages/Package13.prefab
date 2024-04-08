@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7545592021271326054}
   - component: {fileID: -4713701511071919753}
   m_Layer: 0
-  m_Name: Package4
+  m_Name: Package13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c9f6bf71b67fe5b459fea873471ea82c, type: 3}
-  m_Color: {r: 1, g: 1, b: 0, a: 1}
+  m_Color: {r: 0.5566038, g: 0.34259292, b: 0.18588462, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -97,4 +97,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 741dd032678267b4cad31900df113b97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  num: 4
+  num: 13

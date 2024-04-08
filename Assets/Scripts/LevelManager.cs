@@ -7,7 +7,7 @@ public class LevelManager : MonoBehaviour
     private List<House> houses;
     private List<Goldfish> goldfishes;
     [SerializeField] private List<Package> packages;
-    [SerializeField] private GameObject dialogueBox;
+    [SerializeField] private GameObject dialogueBox, HUD;
     [SerializeField] private LevelFinish levelFinish;
     private int correctCount, wrongCount, totalHouse;
     [SerializeField] Transform houseParent, goldfishParent;
@@ -27,9 +27,20 @@ public class LevelManager : MonoBehaviour
         selectedGoldfish = null;
         houses = new List<House>();
         goldfishes = new List<Goldfish>();
-        int packageCount = packages.Count;
+
+        // Choose package randomly from total list
+        List<Package> chosenPackages = new List<Package>();
+        for (int i = 0; i < houseParent.childCount; i++)
+        {
+            int chosenIdx = Random.Range(0, packages.Count);
+            chosenPackages.Add(packages[chosenIdx]);
+            packages.Remove(packages[chosenIdx]);
+        }
+
+        int packageCount = chosenPackages.Count;
+        // Assign package randomly to all houses
         List<Package> tempPackages = new List<Package>();
-        foreach (Package p in packages)
+        foreach (Package p in chosenPackages)
         {
             tempPackages.Add(p);
         }
@@ -43,22 +54,24 @@ public class LevelManager : MonoBehaviour
             tempPackages.Remove(tempPackages[chosenIdx]);
         }
         totalHouse = houses.Count;
+
+        // Assign package randomly to all goldfish
         for (int i = 0; i < goldfishParent.childCount; i++)
         {
             int endIdx = packageCount / goldfishParent.childCount;
             if (i == goldfishParent.childCount-1)
             {
                 // If last fish, assign all remaining packages
-                endIdx = packages.Count;
+                endIdx = chosenPackages.Count;
             }
             goldfishes.Add(goldfishParent.GetChild(i).GetComponent<Goldfish>());
             goldfishes[i].levelManager = this;
             
             for (int j=0; j < endIdx; j++)
             {
-                int chosenIdx = Random.Range(0, packages.Count);
-                goldfishes[i].AddPackage(packages[chosenIdx]);
-                packages.Remove(packages[chosenIdx]);
+                int chosenIdx = Random.Range(0, chosenPackages.Count);
+                goldfishes[i].AddPackage(chosenPackages[chosenIdx]);
+                chosenPackages.Remove(chosenPackages[chosenIdx]);
             }
         }
     }
@@ -75,6 +88,7 @@ public class LevelManager : MonoBehaviour
         if (houses.Count == 0 )
         {
             levelFinish.gameObject.SetActive(true);
+            HUD.SetActive(false);
             if (correctCount == totalHouse)
             {
                 levelFinish.SetStars(3);
