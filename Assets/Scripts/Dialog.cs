@@ -40,6 +40,7 @@ public class Dialog : MonoBehaviour
                 else
                 {
                     gameObject.SetActive(false);
+                    Time.timeScale = 1f;
                 }
             }
         }

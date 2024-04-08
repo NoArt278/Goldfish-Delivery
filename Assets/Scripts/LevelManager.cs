@@ -6,14 +6,21 @@ public class LevelManager : MonoBehaviour
 {
     private List<House> houses;
     private List<Goldfish> goldfishes;
-    public int correctCount, wrongCount;
     [SerializeField] private List<Package> packages;
+    [SerializeField] private GameObject dialogueBox;
     [SerializeField] Transform houseParent, goldfishParent;
 
+    public int correctCount, wrongCount;
+    public bool playDialogue;
     public Goldfish selectedGoldfish;
  
     private void Start()
     {
+        if (playDialogue)
+        {
+            dialogueBox.SetActive(true);
+            Time.timeScale = 0;
+        }
         selectedGoldfish = null;
         houses = new List<House>();
         goldfishes = new List<Goldfish>();
